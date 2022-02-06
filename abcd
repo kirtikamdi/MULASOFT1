@@ -1,0 +1,112 @@
+package com.java;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Java {
+	//connecting to database
+		public static void connect() {  
+			Connection conn = null;  
+			try {  
+				// db parameters  
+				String url = "jdbc:sqlite:C:\\Users\\KIRTI\\Desktop\\MULASOFT\\sqlite-tools-win32-x86-3370200\\sqlite-tools-win32-x86-3370200\\user.db";  
+				// create a connection to the database  
+				conn = DriverManager.getConnection(url);
+				
+				System.out.println("Connection Established");  
+	             
+	
+	
+		   } catch (SQLException e) {
+			System.out.println(e.getMessage());
+				
+		}
+	}
+	
+	//creating table
+	public static void createTable() {
+		//databse
+		String url = "jdbc:sqlite:C:\\Users\\KIRTI\\Desktop\\MULASOFT\\sqlite-tools-win32-x86-3370200\\sqlite-tools-win32-x86-3370200\\user.db";
+		//SQL Query
+		String sql = "CREATE TABLE IF NOT EXISTS movies(\n"
+				+"Name text NOT NULL,\n"
+				+"Actor text NOT NULL,\n"
+				+"Actress text NOT NULL,\n"
+				+"Year integer NOT NULL,\n"
+				+"Director text NOT NULL\n"
+				+");";
+		try {
+			Connection conn = DriverManager.getConnection(url);
+			Statement stmt = conn.createStatement();
+			stmt.execute(sql);
+			System.out.println("Movie Table Created Successfully");
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	public static void insertRecord(String name, String actor, String actress, int year, String director) {
+		//databse
+		String url = "jdbc:sqlite:C:\\Users\\KIRTI\\Desktop\\MULASOFT\\sqlite-tools-win32-x86-3370200\\sqlite-tools-win32-x86-3370200\\user.db";
+		//SQL Query
+		String sql = "INSERT INTO movies(Name, Actor, Actress, Year, Director) \n"
+				+"VALUES ('"+name+"','"+actor+"','"+actress+"',"+year+",'"+director+"');";
+		try {
+			Connection conn = DriverManager.getConnection(url);
+			Statement stmt = conn.createStatement();
+			stmt.execute(sql);
+			System.out.println("Inserted 1 Record in Movie Table");
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+	}
+	public static void selectRecord() {
+		//database
+		String url = "jdbc:sqlite:C:\\Users\\KIRTI\\Desktop\\MULASOFT\\sqlite-tools-win32-x86-3370200\\sqlite-tools-win32-x86-3370200\\user.db";
+		//sql
+				String sql = "SELECT * FROM movies";
+				try {
+					Connection conn = DriverManager.getConnection(url);
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(sql);
+					System.out.println("Name \t\t Actor \t\t Actress \t\t Year \t Director");
+					while(rs.next()) {
+						System.out.println(rs.getString("name")+"\t"+rs.getString("Actor")+"\t"+rs.getString("Actress")+"\t"+rs.getInt("Year")+"\t"+rs.getString("Director"));
+					}
+				}catch(SQLException e) {
+					System.out.println(e.getMessage());
+				}
+	}		
+	public static void selectRecord(String actor) {
+		//database
+				String url = "jdbc:sqlite:C:\\Users\\KIRTI\\Desktop\\MULASOFT\\sqlite-tools-win32-x86-3370200\\sqlite-tools-win32-x86-3370200\\user.db";
+				//sql
+				String sql = "SELECT * FROM movies WHERE Actor='"+actor+"';";
+				try {
+					Connection conn = DriverManager.getConnection(url);
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(sql);
+					System.out.println("Name \t\t Actor \t\t Actress \t\t Year \t Director");
+					while(rs.next()) {
+						System.out.println(rs.getString("name")+"\t"+rs.getString("Actor")+"\t"+rs.getString("Actress")+"\t"+rs.getInt("Year")+"\t"+rs.getString("Director"));
+					}
+				}catch(SQLException e) {
+					System.out.println(e.getMessage());
+				}
+	
+	}
+	public static void main(String[] args) {  
+		connect();  
+		createTable();
+		insertRecord("shershah", "sidharth malhotra", "kiara advani", 2021, "Vishnuvardhan");
+		insertRecord("URI", "vickey kaushal", "yami gautam", 2019, "Aditya Dhar");
+		insertRecord("kabir singh", "shahid kapoor", "kiara advani", 2019, "Sandeep Reddy Vanga");
+		insertRecord("student of the year", "varun dhavan", "aliya bhat", 2012, "karan johar");
+		insertRecord("3 idiots", "Amir Khan", "kareena kapoor", 2009, "Rajkumar Hirani");
+		selectRecord();
+		selectRecord("aditya dhar");
+		
+	}  
+}  
