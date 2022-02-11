@@ -9,12 +9,12 @@ import java.sql.Statement;
 public class Java {
 	//connecting to database
 		public static void connect() {  
-			Connection conn = null;  
+			Connection c = null;  
 			try {  
 				// db parameters  
 				String url = "jdbc:sqlite:C:\\Users\\KIRTI\\Desktop\\MULASOFT\\sqlite-tools-win32-x86-3370200\\sqlite-tools-win32-x86-3370200\\user.db";  
 				// create a connection to the database  
-				conn = DriverManager.getConnection(url);
+				c = DriverManager.getConnection(url);
 				
 				System.out.println("Connection Established");  
 	             
@@ -28,7 +28,7 @@ public class Java {
 	
 	//creating table
 	public static void createTable() {
-		//databse
+		//database
 		String url = "jdbc:sqlite:C:\\Users\\KIRTI\\Desktop\\MULASOFT\\sqlite-tools-win32-x86-3370200\\sqlite-tools-win32-x86-3370200\\user.db";
 		//SQL Query
 		String sql = "CREATE TABLE IF NOT EXISTS movies(\n"
@@ -39,24 +39,24 @@ public class Java {
 				+"Director text NOT NULL\n"
 				+");";
 		try {
-			Connection conn = DriverManager.getConnection(url);
-			Statement stmt = conn.createStatement();
-			stmt.execute(sql);
+			Connection c = DriverManager.getConnection(url);
+			Statement statement = c.createStatement();
+			statement.execute(sql);
 			System.out.println("Movie Table Created Successfully");
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	public static void insertRecord(String name, String actor, String actress, int year, String director) {
-		//databse
+		//database
 		String url = "jdbc:sqlite:C:\\Users\\KIRTI\\Desktop\\MULASOFT\\sqlite-tools-win32-x86-3370200\\sqlite-tools-win32-x86-3370200\\user.db";
 		//SQL Query
 		String sql = "INSERT INTO movies(Name, Actor, Actress, Year, Director) \n"
 				+"VALUES ('"+name+"','"+actor+"','"+actress+"',"+year+",'"+director+"');";
 		try {
-			Connection conn = DriverManager.getConnection(url);
-			Statement stmt = conn.createStatement();
-			stmt.execute(sql);
+			Connection c = DriverManager.getConnection(url);
+			Statement statement = c.createStatement();
+			statement.execute(sql);
 			System.out.println("Inserted 1 Record in Movie Table");
 		}catch(SQLException e){
 			System.out.println(e.getMessage());
@@ -68,12 +68,12 @@ public class Java {
 		//sql
 				String sql = "SELECT * FROM movies";
 				try {
-					Connection conn = DriverManager.getConnection(url);
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery(sql);
+					Connection c = DriverManager.getConnection(url);
+					Statement statement = c.createStatement();
+					ResultSet r = statement.executeQuery(sql);
 					System.out.println("Name \t\t Actor \t\t Actress \t\t Year \t Director");
-					while(rs.next()) {
-						System.out.println(rs.getString("name")+"\t"+rs.getString("Actor")+"\t"+rs.getString("Actress")+"\t"+rs.getInt("Year")+"\t"+rs.getString("Director"));
+					while(r.next()) {
+						System.out.println(r.getString("name")+"\t"+r.getString("Actor")+"\t"+r.getString("Actress")+"\t"+r.getInt("Year")+"\t"+r.getString("Director"));
 					}
 				}catch(SQLException e) {
 					System.out.println(e.getMessage());
@@ -85,12 +85,12 @@ public class Java {
 				//sql
 				String sql = "SELECT * FROM movies WHERE Actor='"+actor+"';";
 				try {
-					Connection conn = DriverManager.getConnection(url);
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery(sql);
+					Connection c = DriverManager.getConnection(url);
+					Statement statement = c.createStatement();
+					ResultSet r = statement.executeQuery(sql);
 					System.out.println("Name \t\t Actor \t\t Actress \t\t Year \t Director");
-					while(rs.next()) {
-						System.out.println(rs.getString("name")+"\t"+rs.getString("Actor")+"\t"+rs.getString("Actress")+"\t"+rs.getInt("Year")+"\t"+rs.getString("Director"));
+					while(r.next()) {
+						System.out.println(r.getString("name")+"\t"+r.getString("Actor")+"\t"+r.getString("Actress")+"\t"+r.getInt("Year")+"\t"+r.getString("Director"));
 					}
 				}catch(SQLException e) {
 					System.out.println(e.getMessage());
@@ -110,3 +110,4 @@ public class Java {
 		
 	}  
 }  
+
