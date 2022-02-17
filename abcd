@@ -106,7 +106,7 @@ public class Java {
 		insertRecord("student of the year", "varun dhavan", "aliya bhat", 2012, "karan johar");
 		insertRecord("3 idiots", "Amir Khan", "kareena kapoor", 2009, "Rajkumar Hirani");
 		selectRecord();
-		selectRecord("aditya dhar");
+		selectRecord("vickey kaushal");
 		
 	}  
 }  
