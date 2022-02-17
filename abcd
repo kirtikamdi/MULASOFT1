@@ -88,7 +88,7 @@ public class Java {
 					Connection c = DriverManager.getConnection(url);
 					Statement statement = c.createStatement();
 					ResultSet r = statement.executeQuery(sql);
-					System.out.println("Name \t\t Actor \t\t Actress \t\t Year \t Director");
+					System.out.println("Name \t Actor \t Actress \t Year \t Director");
 					while(r.next()) {
 						System.out.println(r.getString("name")+"\t"+r.getString("Actor")+"\t"+r.getString("Actress")+"\t"+r.getInt("Year")+"\t"+r.getString("Director"));
 					}
